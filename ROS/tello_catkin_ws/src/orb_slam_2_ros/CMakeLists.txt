@@ -23,29 +23,33 @@ ENDIF()
 
 LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/orb_slam2/cmake_modules)
 
-#find_package (catkin REQUIRED COMPONENTS
-#roscpp
-#rospy
-#std_msgs
-#cv_bridge
-#image_transport
-#tf
-#sensor_msgs
-#dynamic_reconfigure
-#message_generation
-#)
 
-#find_package(OpenCV 3.0 QUIET)
-#if(NOT OpenCV_FOUND)
-#   find_package(OpenCV 2.4.3 QUIET)
-#   if(NOT OpenCV_FOUND)
-#      message(FATAL_ERROR "OpenCV > 2.4.3 not found.")
-#   endif()
-#endif()
+find_package (catkin REQUIRED COMPONENTS
+roscpp
+rospy
+std_msgs
+cv_bridge
+image_transport
+tf
+sensor_msgs
+dynamic_reconfigure
+message_generation
+)
+
+find_package(OpenCV 3.0 QUIET)
+if(NOT OpenCV_FOUND)
+   find_package(OpenCV 2.4.3 QUIET)
+   if(NOT OpenCV_FOUND)
+      message(FATAL_ERROR "OpenCV > 2.4.3 not found.")
+   endif()
+endif()
 
 
 
-find_package(Eigen3 3.1.0 REQUIRED)
+#find_package(Eigen3 3.1.0 REQUIRED)
+list(APPEND CMAKE_INCLUDE_PATH "/usr/local/include")
+find_package (Eigen3 3.3 REQUIRED NO_MODULE)
+
 find_package(Pangolin REQUIRED)
 
 set (DYNAMIC_RECONFIGURE_PATH ros/config/dynamic_reconfigure.cfg)
@@ -55,9 +59,9 @@ execute_process(COMMAND chmod a+x ${DYNAMIC_RECONFIGURE_PATH}
         OUTPUT_VARIABLE cmd_ver)
 message(STATUS "Chmod a+x the dynamic_reconfigure file")
 
-#generate_dynamic_reconfigure_options(
-#        ${DYNAMIC_RECONFIGURE_PATH}
-#)
+generate_dynamic_reconfigure_options(
+        ${DYNAMIC_RECONFIGURE_PATH}
+)
 
 set(LIBS_ORBSLAM
 ${OpenCV_LIBS}
@@ -72,20 +76,20 @@ ${OpenCV_LIBS}
 ${catkin_LIBRARIES}
 )
 
-#add_service_files(
-#        FILES
-#        SaveMap.srv
-#)
+add_service_files(
+        FILES
+        SaveMap.srv
+)
 
-#generate_messages(
-#        DEPENDENCIES
-#        std_msgs
-#)
+generate_messages(
+        DEPENDENCIES
+        std_msgs
+)
 
-#catkin_package (
-#  CATKIN_DEPENDS roscpp rospy std_msgs cv_bridge image_transport tf sensor_msgs dynamic_reconfigure message_runtime
-#  LIBRARIES {PROJECT_NAME} libDBoW2 libg2o
-#)
+catkin_package (
+  CATKIN_DEPENDS roscpp rospy std_msgs cv_bridge image_transport tf sensor_msgs dynamic_reconfigure message_runtime
+  LIBRARIES {PROJECT_NAME} libDBoW2 libg2o
+)
 
 include_directories(
 ${PROJECT_SOURCE_DIR}/orb_slam2
@@ -141,7 +145,7 @@ add_executable (${PROJECT_NAME}_mono
 ros/src/MonoNode.cc
 ros/src/Node.cc
 )
-#add_dependencies (${PROJECT_NAME}_mono ${PROJECT_NAME} ${PROJECT_NAME}_gencfg)
+add_dependencies (${PROJECT_NAME}_mono ${PROJECT_NAME} ${PROJECT_NAME}_gencfg)
 
 target_link_libraries(${PROJECT_NAME}_mono
 ${LIBS_ROS}
@@ -152,7 +156,7 @@ add_executable (${PROJECT_NAME}_stereo
 ros/src/StereoNode.cc
 ros/src/Node.cc
 )
-#add_dependencies (${PROJECT_NAME}_stereo ${PROJECT_NAME} ${PROJECT_NAME}_gencfg)
+add_dependencies (${PROJECT_NAME}_stereo ${PROJECT_NAME} ${PROJECT_NAME}_gencfg)
 
 target_link_libraries(${PROJECT_NAME}_stereo
 ${LIBS_ROS}
@@ -163,7 +167,7 @@ add_executable (${PROJECT_NAME}_rgbd
 ros/src/RGBDNode.cc
 ros/src/Node.cc
 )
-#add_dependencies (${PROJECT_NAME}_rgbd ${PROJECT_NAME} ${PROJECT_NAME}_gencfg)
+add_dependencies (${PROJECT_NAME}_rgbd ${PROJECT_NAME} ${PROJECT_NAME}_gencfg)
 
 target_link_libraries(${PROJECT_NAME}_rgbd
 ${LIBS_ROS}
