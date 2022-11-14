@@ -23,7 +23,6 @@ ENDIF()
 
 LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/orb_slam2/cmake_modules)
 
-
 find_package (catkin REQUIRED COMPONENTS
 roscpp
 rospy
