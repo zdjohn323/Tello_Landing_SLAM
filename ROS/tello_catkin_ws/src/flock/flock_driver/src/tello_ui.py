@@ -191,8 +191,8 @@ class TelloUI(object):
         self.path_publisher = rospy.Publisher(self.publish_prefix+'path', Path, queue_size = 1)
         self.take_picure_publisher = rospy.Publisher(self.publish_prefix+'take_picure', Empty, queue_size=1)
         self.merge_coordinates_pub = rospy.Publisher(self.publish_prefix+'TransformerState', Bool, queue_size=1)
-        
-
+        # make a new function to publish a trajectory to follow 
+        # call that funcion in find_and_land
         self.publish_command()
 
 
@@ -295,6 +295,10 @@ class TelloUI(object):
 
         self.btn_calibrate_z = tki.Button(self.current_frame, text="Calibrate Z!", command=self.calibrate_z_callback, bg='yellow')
         self.btn_calibrate_z.grid(row=self.frame_row, column=1)#, padx=3, pady=3)
+
+        # TelloLanding Project
+        self.btn_find_and_land = tki.Button(self.current_frame, text="Fina and Land", command=self.find_and_land, bg='blue')
+        self.btn_find_and_land.grid(row=self.frame_row, column=2)
 
         self.row += 1
         self.column = 0
@@ -1018,7 +1022,6 @@ class TelloUI(object):
         
         self.init_trajectory_frame_flag = True
         
-
         self.frame_trajectory_main = tki.Frame(root_frame, relief=tki.SUNKEN, borderwidth = 1)
         rospy.loginfo("trajectory_frame in row={} column={}".format(self.row, self.column))
         self.frame_trajectory_main.grid(row=self.row, column=self.column)
@@ -1603,6 +1606,35 @@ class TelloUI(object):
         self.pub_land.publish()
         self.btn_takeoff.configure(fg='black', bg='yellow')
         self.btn_land.configure(fg='green', bg='white')
+
+    # Tellolanding Project
+    def find_and_land(self):
+    ##TODO
+    # search for target and design a route, follow the path
+    # if the target is found, then lower the height and get closer to the target, fly to the top of the target and land
+
+        self.twist_manual_control.linear.x = 0
+        self.twist_manual_control.linear.y = 0
+        self.twist_manual_control.linear.z = -0.3
+        self.twist_manual_control.angular.z = 0
+        self.cmd_val_publisher.publish(self.twist_manual_control)
+        time.sleep(2)
+
+        self.twist_manual_control.linear.x = 0
+        self.twist_manual_control.linear.y = 0
+        self.twist_manual_control.linear.z = -0.2
+        self.twist_manual_control.angular.z = 0
+        self.cmd_val_publisher.publish(self.twist_manual_control)
+        time.sleep(1)
+        self.manual_control_clear_callback
+
+        # land
+        self.land = True
+        self.btn_find_and_land.configure(bg='red')
+        self.btn_takeoff.configure(fg='balck', bg='yellow')
+        self.btn_land.configure(fg='green',bg='white')
+
+
 
 
     def onClose(self, *args):
