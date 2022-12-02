@@ -1608,7 +1608,7 @@ class TelloUI(object):
         self.btn_land.configure(fg='green', bg='white')
 
     # Tellolanding Project
-    def find_and_land(self)
+    def find_and_land(self):
     ##TODO
     # search for target and design a route, follow the path
     # if the target is found, then lower the height and get closer to the target, fly to the top of the target and land
