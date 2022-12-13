@@ -64,68 +64,115 @@ Python PIL
 Based on https://github.com/stevenlovegrove/Pangolin 
 
 ```cd ~/(favorite directory)/ ```
+
 ```git clone https://github.com/stevenlovegrove/Pangolin.git ```
+
 ```sudo apt install libgl1-mesa-dev ```
+
 ```sudo apt install libglew-dev ```
+
 ```sudo apt-get install libxkbcommon-dev ```
+
 ```cd Pangolin ```
+
 ```mkdir build ```
+
 ```cd build ```
+
 ```cmake .. ```
+
 ```cmake --build ```
 
 ### h264decoder 
-  Baed on https://github.com/DaWelter/h264decoder 
+Baed on https://github.com/DaWelter/h264decoder 
+  
 ```cd ~/(favorite directory/``` 
+
 ```git clone https://github.com/DaWelter/h264decoder.git ```
+
 Download the version V1 which is the old version, the old version geneartes  libh264decoder.so 
+
 ``` git checkout tags/V1```
 Inside h264decoder.cpp replace PIX_FMT_RGB24 with AV_PIX_FMT_RGB24 
+
 ```mkdir build ```
+
 ```cd build ```
+
 ```cmake .. ```
+
 ```make``` 
+
 now copy it to python path 
+
 ```sudo cp ~/ROS/h264decoder/libh264decoder.so /usr/local/lib/python2.7/dist-packages ```
+
 ### -lEIGEN: 
 Update Eigen version from 3.2 to 3.3.9 Download Eigen 3.3.9 
+
    ```git clone && make && make install ```
+   
 Then replace all the find_package(Eigen3 REQUIRED) to 
 list(APPEND CMAKE_INCLUDE_PATH "/usr/local/include")  
 find_package (Eigen3 3.3 REQUIRED NO_MODULE) 
+
 ```sudo apt-get install ros-kinetic-cv-bridge```
+
 ## Tello_Landing_SLAM 
-Cloning repo from github 
+### Cloning repo from github 
 In user’s favioute directory: 
+
 ```git clone https://github.com/zdjohn323/Tello_Landing_SLAM.git```
 
 Unzip the Vocabulary file in /Tello_ROS_ORBSLAM/ROS/tello_catkin_ws/src/ORB_SLAM2_2d
-Installing TelloPy 
+
+### Installing TelloPy 
 based on https://github.com/dji-sdk/Tello-Python and https://github.com/hanyazou/TelloPy 
 ```cd ~/(name of directory)/Tello_Landing_SLAM/TelloPy ```
+
 ```sudo python setup.py install ```
+
 Installing dependencies for ROS 
+
 ```cd ~/(name of directory)/Tello_Landing_SLAM/ROS/tello_catkin_ws/```
+
 ```sudo rosdep init ```
+
 ```rosdep update ```
+
 ```rosdep install --from-paths src --ignore-src -r -y ```
 
 Build the code: 
+
 ```cd ~/(your favorite directory)//Tello_Landing_SLAM/ROS/tello_catkin_ws/ ```
+
 ```catkin init ```
+
 ```catkin clean ```
+
 ```catkin build ```
+
 ```Source devel/setup.bash```
+
 If it doesn’t work, make sure you changed the makefile to the wanted version of ROS 
 Add the enviroment setup to bashrc 
+
 ```echo "source $PWD/devel/setup.bash" >> ~/.bashrc ```
+
 ```source ~/.bashrc ```
 
 After successfully build the code:
+
 To run the code:
+
 ```cd ~/(your favorite directory)//Tello_Landing_SLAM/ROS/tello_catkin_ws/```
+
 Tello Controller with ORB_SLAM2
+
 ```roslaunch flock_driver orbslam2_with_cloud_map.launch```
+
 ```	roscore```
+
 ```rosrun ORB_SLAM2_2d Monopub src/ORB_SLAM2_2d/Vocabulary/ORBvoc.txt src/ORB_SLAM2_2d/Monocular/Tello.yaml -1 /tello/camera/image_raw```
+
 ```rosrun ORB_SLAM2 Monosub 5 3 29 -25 48 -12 0.55 0.50 1 5``` (change the numbers according to 2d-grid-mapping.pdf)
