@@ -23,35 +23,44 @@ Before you can use ROS, you will need to initialize rosdep. rosdep enables you t
 ```rosdep update ```
 
 ## Environment setup 
+
 It's convenient if the ROS environment variables are automatically added to your bash session every  time a new shell is launched: 
+
 ```echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc ```
 ```source ~/.bashrc```
-Dependencies for building packages 
+
+### Dependencies for building packages 
 Up to now you have installed what you need to run the core ROS packages. To create and manage your  own ROS workspaces, there are various tools and requirements that are distributed separately. For  example, rosinstall is a frequently used command-line tool that enables you to easily download many  source trees for ROS packages with one command. To install this tool and other dependencies for  building ROS packages, run: 
+
 ```sudo apt install python-rosinstall python-rosinstall-generator python-wstool build essential ```
+
 ## Install Prerequisites 
-catking tools 
+### catking tools 
 First you must have the ROS repositories which contain the .deb for catkin_tools: 
+
 ```sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main"  > /etc/apt/sources.list.d/ros-latest.list' ```
 ```wget http://packages.ros.org/ros.key -O - | sudo apt-key add - ```
+
 Once you have added that repository, run these commands to install catkin_tools: 
+
 ```sudo apt-get update ```
 ```sudo apt-get install python-catkin-tools ```
-Eigen3 
+### Eigen3 
 Required by g2o. Download and install instructions can be found here. Otherwise Eigen can be  installed as a binary with: 
+
 ```sudo apt install libeigen3-dev ```
-ffmpeg 
+### ffmpeg 
 ```sudo apt install ffmpeg ```
-Python catkin tools (probably already installed) 
+### Python catkin tools (probably already installed) 
 ```sudo apt-get install python-catkin-tools ```
-Joystick drivers 
+### Joystick drivers 
 Tested it only on melodic. 
 ```sudo apt install ros-melodic-joystick-drivers```
 Python PIL 
 ```sudo apt-get install python-imaging-tk ```
 
 ## Github based Prerequisites 
-Pangolin (used in orbslam2) 
+### Pangolin (used in orbslam2) 
 Based on https://github.com/stevenlovegrove/Pangolin 
 ```cd ~/(favorite directory)/ ```
 ```git clone https://github.com/stevenlovegrove/Pangolin.git ```
@@ -63,7 +72,7 @@ Based on https://github.com/stevenlovegrove/Pangolin
 ```cd build ```
 ```cmake .. ```
 ```cmake --build ```
-h264decoder 
+### h264decoder 
   Baed on https://github.com/DaWelter/h264decoder 
 ```cd ~/(favorite directory/``` 
 ```git clone https://github.com/DaWelter/h264decoder.git ```
@@ -76,7 +85,7 @@ Inside h264decoder.cpp replace PIX_FMT_RGB24 with AV_PIX_FMT_RGB24
 ```make``` 
 now copy it to python path 
 ```sudo cp ~/ROS/h264decoder/libh264decoder.so /usr/local/lib/python2.7/dist-packages ```
--lEIGEN: 
+### -lEIGEN: 
 Update Eigen version from 3.2 to 3.3.9 Download Eigen 3.3.9 
    ```git clone && make && make install ```
 Then replace all the find_package(Eigen3 REQUIRED) to 
