@@ -62,6 +62,7 @@ Python PIL
 ## Github based Prerequisites 
 ### Pangolin (used in orbslam2) 
 Based on https://github.com/stevenlovegrove/Pangolin 
+
 ```cd ~/(favorite directory)/ ```
 ```git clone https://github.com/stevenlovegrove/Pangolin.git ```
 ```sudo apt install libgl1-mesa-dev ```
@@ -72,6 +73,7 @@ Based on https://github.com/stevenlovegrove/Pangolin
 ```cd build ```
 ```cmake .. ```
 ```cmake --build ```
+
 ### h264decoder 
   Baed on https://github.com/DaWelter/h264decoder 
 ```cd ~/(favorite directory/``` 
