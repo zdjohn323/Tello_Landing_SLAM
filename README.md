@@ -1,6 +1,6 @@
 # Tello_Landing_SLAM 
 ## ROS Install
-Setup your computer to accept software from packages.ros.org. : 
+Setup your computer to accept software from packages.ros.org.: 
 ```sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list' ```
 Set up your keys 
 ```sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key  C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654 ```
@@ -13,14 +13,14 @@ Initialize rosdep
 Before you can use ROS, you will need to initialize rosdep. rosdep enables you to easily install system  dependencies for source you want to compile and is required to run some core components in ROS. 
 ```sudo rosdep init ```
 ```rosdep update ```
-##Environment setup 
+## Environment setup 
 It's convenient if the ROS environment variables are automatically added to your bash session every  time a new shell is launched: 
 ```echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc ```
 ```source ~/.bashrc```
 Dependencies for building packages 
 Up to now you have installed what you need to run the core ROS packages. To create and manage your  own ROS workspaces, there are various tools and requirements that are distributed separately. For  example, rosinstall is a frequently used command-line tool that enables you to easily download many  source trees for ROS packages with one command. To install this tool and other dependencies for  building ROS packages, run: 
 ```sudo apt install python-rosinstall python-rosinstall-generator python-wstool build essential ```
-##Install Prerequisites 
+## Install Prerequisites 
 catking tools 
 First you must have the ROS repositories which contain the .deb for catkin_tools: 
 ```sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main"  > /etc/apt/sources.list.d/ros-latest.list' ```
@@ -41,7 +41,7 @@ Tested it only on melodic.
 Python PIL 
 ```sudo apt-get install python-imaging-tk ```
 
-##Github based Prerequisites 
+## Github based Prerequisites 
 Pangolin (used in orbslam2) 
 Based on https://github.com/stevenlovegrove/Pangolin 
 ```cd ~/(favorite directory)/ ```
@@ -74,7 +74,7 @@ Then replace all the find_package(Eigen3 REQUIRED) to
 list(APPEND CMAKE_INCLUDE_PATH "/usr/local/include")  
 find_package (Eigen3 3.3 REQUIRED NO_MODULE) 
 ```sudo apt-get install ros-kinetic-cv-bridge```
-##Tello_Landing_SLAM 
+## Tello_Landing_SLAM 
 Cloning repo from github 
 In user’s favioute directory: 
 ```git clone https://github.com/zdjohn323/Tello_Landing_SLAM.git```
